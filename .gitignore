@@ -1,12 +1,17 @@
 *.class
 
 # Mobile Tools for Java (J2ME)
+# Seeeee tipo 20 anni fa :)
 .mtj.tmp/
 
 # Package Files #
 *.jar
 *.war
 *.ear
+build/
+logs/
+.gradle/
+.nb-gradle
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*

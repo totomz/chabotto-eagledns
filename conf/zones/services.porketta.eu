@@ -1,0 +1,10 @@
+services.porketta.eu. IN    SOA   dns.services.porketta.eu.  ss.services.porketta.eu.  (
+                                        20091118     ; Serial
+                                        5M     ; Refresh
+                                        2M    ; Retry
+                                        1D     ; Expiry
+                                        5M )   ; Minimum
+@                       IN      NS      dns.services.porketta.eu.	
+@                       IN      A       127.0.0.1
+kuoko                   IN      A       127.0.0.1
+est2._domainKey        IN      TXT     "v=DKIM1; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCIKFLFWuQfDfBug688BJ0dazQ/x+GEnH443KpnBK8agpJXSgFAPhlRvf0yhqHeuI+J5onsSOo9Rn4fKaFQaQNBfCQpHSMnZpBC3X0G5Bc1HWq1AtBl6Z1rbyFen4CmGYOyRzDBUOIW6n8QK47bf3hvoSxqpY1pHdgYoVK0YdIP+wIDAQAB; t=s"
