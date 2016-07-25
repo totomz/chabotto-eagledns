@@ -1,8 +1,2 @@
 # chabotto-eagledns
-A service registry based on DNS and Redis
-
-
-# TODO
-
-- [ ] Add credits and license
-- [ ] Build as standalone
+A Java based DNS. this is a fork from http://www.unlogic.se/projects/eagledns
