@@ -691,9 +691,7 @@ public class EagleDNS implements Runnable, SystemInterface {
 		System.out.println(VERSION + " started with " + this.primaryZoneMap.size() + " primary zones and " + this.secondaryZoneMap.size() + " secondary zones, " + this.zoneProviders.size() + " Zone providers and " + resolvers.size() + " resolvers");
 		
 		this.status = Status.STARTED;
-		
-		System.out.close();
-		System.err.close();
+				
 	}
 
 	public synchronized void shutdown() {
