@@ -1,6 +1,6 @@
 <Config>
     <System>
-        <Port>53</Port>
+        <Port>5553</Port>
         <TCPThreadPoolMinSize>5</TCPThreadPoolMinSize>
         <TCPThreadPoolMaxSize>20</TCPThreadPoolMaxSize>
         <TCPThreadPoolShutdownTimeout>60</TCPThreadPoolShutdownTimeout>
@@ -43,11 +43,17 @@
     </ZoneProviders>
 	
     <Resolvers>
+        
         <Resolver>
+            <Name>Redis</Name>
+            <Class>it.myideas.chabotto.eagledns.resolver.redis.RedisResolver</Class>
+        </Resolver>
+        
+<!--        <Resolver>
             <Name>Authoritative resolver</Name>
             <Class>se.unlogic.eagledns.resolvers.AuthoritativeResolver</Class>
-        </Resolver>
-		
+        </Resolver>-->
+        
         <!-- Uncomment the block below to enable a forwarding resolver with failover enabled -->
 		
         <!--
@@ -108,7 +114,7 @@
         </Plugin>
 		
         <!-- RMI based zone replication plugin (server) -->
-<!--        <Plugin>
+        <!--        <Plugin>
             <Name>RMI zone replication server</Name>
             <Class>se.unlogic.eagledns.plugins.zonereplicator.ReplicationServerPlugin</Class>
             <Properties>
