@@ -17,6 +17,7 @@ import org.xbill.DNS.Record;
 import org.xbill.DNS.Section;
 import org.xbill.DNS.TSIG;
 import org.xbill.DNS.TSIGRecord;
+import org.xbill.DNS.Zone;
 import se.unlogic.eagledns.EagleDNS;
 import se.unlogic.eagledns.Request;
 import se.unlogic.eagledns.SystemInterface;
@@ -40,6 +41,7 @@ public class RedisResolver extends BasePlugin implements Resolver {
         }
 
         Name name = queryRecord.getName();
+        Zone zone = findBestZone(name);
 
         // Magia ON
         Header header;
@@ -86,8 +88,47 @@ public class RedisResolver extends BasePlugin implements Resolver {
         int type = queryRecord.getType();
         int dclass = queryRecord.getDClass();
 
+        byte rcode = addAnswer(response, name, type, dclass, 0, flags,zone);
+
+        if (rcode != Rcode.NOERROR && rcode != Rcode.NXDOMAIN) {
+            return EagleDNS.errorMessage(query, rcode);
+        }
+
+        addAdditional(response, flags);
+
+        if (queryOPT != null) {
+            int optflags = (flags == EagleDNS.FLAG_DNSSECOK) ? ExtendedFlags.DO : 0;
+            OPTRecord opt = new OPTRecord((short) 4096, rcode, (byte) 0, optflags);
+            response.addRecord(opt, Section.ADDITIONAL);
+        }
+
+        response.setTSIG(tsig, Rcode.NOERROR, queryTSIG);
+
+        return response;
+        
         // Magia Off
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    private Zone findBestZone(Name name) {
+
+		Zone foundzone = systemInterface.getZone(name);
+
+		if (foundzone != null) {
+			return foundzone;
+		}
+
+		int labels = name.labels();
+
+		for (int i = 1; i < labels; i++) {
+
+			Name tname = new Name(name, i);
+			foundzone = systemInterface.getZone(tname);
+
+			if (foundzone != null) {
+				return foundzone;
+			}
+		}
+
+		return null;
+	}
 }
